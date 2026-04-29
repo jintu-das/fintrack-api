@@ -3,9 +3,10 @@ import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { BudgetsModule } from './budgets/budgets.module.js';
 import { ConfigModule } from '@nestjs/config';
+import { CategoriesModule } from './categories/categories.module.js';
 
 @Module({
-  imports: [ConfigModule.forRoot(), BudgetsModule],
+  imports: [ConfigModule.forRoot(), BudgetsModule, CategoriesModule],
   controllers: [AppController],
   providers: [AppService],
 })
