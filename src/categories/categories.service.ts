@@ -12,6 +12,7 @@ export class CategoriesService {
     return this.prisma.category.create({
       data: {
         name: createCategoryDto.name,
+        icon: createCategoryDto.icon,
       },
     });
   }
@@ -31,6 +32,7 @@ export class CategoriesService {
       where: { id },
       data: {
         name: updateCategoryDto.name,
+        icon: updateCategoryDto.icon,
       },
     });
   }
