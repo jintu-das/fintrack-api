@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTransactionDto } from './dto/create-transaction.dto.js';
 import { PrismaService } from '../prisma.service.js';
+import { UpdateTransactionDto } from './dto/update-transaction.dto.js';
 
 @Injectable()
 export class TransactionsService {
@@ -25,15 +26,25 @@ export class TransactionsService {
     return this.prisma.transaction.findMany();
   }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} transaction`;
-  // }
+  update(id: string, updateTransactionDto: UpdateTransactionDto) {
+    return this.prisma.transaction.update({
+      where: { id },
+      data: {
+        name: updateTransactionDto.name,
+        amount: updateTransactionDto.amount,
+        type: updateTransactionDto.type,
+        description: updateTransactionDto.description,
+        date: updateTransactionDto.date
+          ? new Date(updateTransactionDto.date)
+          : undefined,
+        categoryId: updateTransactionDto.categoryId,
+      },
+    });
+  }
 
-  // update(id: number, updateTransactionDto: UpdateTransactionDto) {
-  //   return `This action updates a #${id} transaction`;
-  // }
-
-  // remove(id: number) {
-  //   return `This action removes a #${id} transaction`;
-  // }
+  remove(id: string) {
+    return this.prisma.transaction.delete({
+      where: { id },
+    });
+  }
 }

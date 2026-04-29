@@ -20,11 +20,11 @@ export class CategoriesService {
     return this.prisma.category.findMany();
   }
 
-  findOne(id: string) {
-    return this.prisma.category.findUnique({
-      where: { id },
-    });
-  }
+  // findOne(id: string) {
+  //   return this.prisma.category.findUnique({
+  //     where: { id },
+  //   });
+  // }
 
   update(id: string, updateCategoryDto: UpdateCategoryDto): Promise<Category> {
     return this.prisma.category.update({
