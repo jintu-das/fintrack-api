@@ -9,7 +9,7 @@ import { TransactionType } from '../../generated/prisma/enums.js';
 
 export class CreateTransactionDto {
   @IsString()
-  name!: string;
+  merchant!: string;
 
   @IsNumber()
   amount!: number;

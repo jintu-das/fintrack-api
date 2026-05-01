@@ -10,7 +10,7 @@ export class TransactionsService {
   create(createTransactionDto: CreateTransactionDto) {
     return this.prisma.transaction.create({
       data: {
-        name: createTransactionDto.name,
+        merchant: createTransactionDto.merchant,
         amount: createTransactionDto.amount,
         type: createTransactionDto.type,
         description: createTransactionDto.description,
@@ -30,7 +30,7 @@ export class TransactionsService {
     return this.prisma.transaction.update({
       where: { id },
       data: {
-        name: updateTransactionDto.name,
+        merchant: updateTransactionDto.merchant,
         amount: updateTransactionDto.amount,
         type: updateTransactionDto.type,
         description: updateTransactionDto.description,
