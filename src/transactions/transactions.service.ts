@@ -22,8 +22,16 @@ export class TransactionsService {
     });
   }
 
-  findAll() {
-    return this.prisma.transaction.findMany();
+  findAll(categoryId?: string) {
+    return this.prisma.transaction.findMany({
+      where: categoryId ? { categoryId } : undefined,
+      orderBy: {
+        date: 'desc',
+      },
+      include: {
+        category: true,
+      },
+    });
   }
 
   update(id: string, updateTransactionDto: UpdateTransactionDto) {

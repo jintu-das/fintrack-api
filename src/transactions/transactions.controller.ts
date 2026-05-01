@@ -6,10 +6,11 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { CreateTransactionDto } from './dto/create-transaction.dto.js';
-import { TransactionsService } from './transactions.service.js';
 import { UpdateTransactionDto } from './dto/update-transaction.dto.js';
+import { TransactionsService } from './transactions.service.js';
 
 @Controller('transactions')
 export class TransactionsController {
@@ -21,8 +22,8 @@ export class TransactionsController {
   }
 
   @Get()
-  findAll() {
-    return this.transactionsService.findAll();
+  findAll(@Query('categoryId') categoryId?: string) {
+    return this.transactionsService.findAll(categoryId);
   }
 
   // @Get(':id')
