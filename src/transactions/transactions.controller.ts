@@ -9,6 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { CreateTransactionDto } from './dto/create-transaction.dto.js';
+import { FindTransactionsQueryDto } from './dto/find-transactions-query.dto.js';
 import { UpdateTransactionDto } from './dto/update-transaction.dto.js';
 import { TransactionsService } from './transactions.service.js';
 
@@ -22,8 +23,8 @@ export class TransactionsController {
   }
 
   @Get()
-  findAll(@Query('categoryId') categoryId?: string) {
-    return this.transactionsService.findAll(categoryId);
+  findAll(@Query() query: FindTransactionsQueryDto) {
+    return this.transactionsService.findAll(query);
   }
 
   // @Get(':id')

@@ -1,9 +1,9 @@
 import {
+  IsDateString,
   IsEnum,
   IsNumber,
   IsOptional,
   IsString,
-  IsDateString,
 } from 'class-validator';
 import { TransactionType } from '../../generated/prisma/enums.js';
 

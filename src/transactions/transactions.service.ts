@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTransactionDto } from './dto/create-transaction.dto.js';
+import { Prisma } from 'src/generated/prisma/client.js';
 import { PrismaService } from '../prisma.service.js';
+import { CreateTransactionDto } from './dto/create-transaction.dto.js';
+import { FindTransactionsQueryDto } from './dto/find-transactions-query.dto.js';
 import { UpdateTransactionDto } from './dto/update-transaction.dto.js';
 
 @Injectable()
@@ -22,15 +24,23 @@ export class TransactionsService {
     });
   }
 
-  findAll(categoryId?: string) {
+  findAll(query: FindTransactionsQueryDto) {
+    const { categoryId, startDate, endDate } = query;
+
+    const where: Prisma.TransactionWhereInput = {
+      ...(categoryId && { categoryId }),
+      ...((startDate || endDate) && {
+        date: {
+          ...(startDate && { gte: new Date(startDate) }),
+          ...(endDate && { lte: new Date(endDate) }),
+        },
+      }),
+    };
+
     return this.prisma.transaction.findMany({
-      where: categoryId ? { categoryId } : undefined,
-      orderBy: {
-        date: 'desc',
-      },
-      include: {
-        category: true,
-      },
+      where,
+      orderBy: { date: 'desc' },
+      include: { category: true },
     });
   }
 
